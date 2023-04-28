@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package dev.dgvalerio.ufal;
+
+service User {
+  rpc CountRepositories(Request) returns (Response) {};
+}
+
+message Request {
+  string userName = 1;
+}
+
+message Response {
+  string publicRepos = 1;
+  string followers = 2;
+  string following = 3;
+}
+
