@@ -1,0 +1,8 @@
+{
+  "name": "grpc-introduction",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Dgvalerio/grpc-introduction.git",
+  "author": "dgvalerio <al.davigvalerio@gmail.com>",
+  "license": "MIT"
+}
