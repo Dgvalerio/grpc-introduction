@@ -83,8 +83,6 @@
       {
         "newlinesBetween": "always",
         "groups": [
-          "/^@nestjs/",
-          "/@/",
           "module",
           [
             "parent",
@@ -96,14 +94,6 @@
           "order": "asc",
           "ignoreCase": true
         }
-      }
-    ],
-    "no-restricted-imports": [
-      "error",
-      {
-        "patterns": [
-          ".*"
-        ]
       }
     ],
     "@typescript-eslint/explicit-function-return-type": "warn",
