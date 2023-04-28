@@ -6,13 +6,14 @@ import { RandomHandlers } from '../proto/dev/dgvalerio/ufal/Random';
 import { ProtoGrpcType } from '../proto/random';
 
 const PORT = 8082;
+
 const PROTO_FILE = '../proto/random.proto';
 
 const packageDefinition = protoLoader.loadSync(
   path.resolve(__dirname, PROTO_FILE)
 );
 
-const grpcObject = grpc.loadPackageDefinition(
+export const grpcObject = grpc.loadPackageDefinition(
   packageDefinition
 ) as unknown as ProtoGrpcType;
 
@@ -23,7 +24,9 @@ const getServer = (): grpc.Server => {
 
   server.addService(randomPackage.Random.service, {
     PingPong: (req, res) => {
-      console.log(req, res);
+      console.log(req.request);
+
+      res(null, { message: 'Pong' });
     },
   } as RandomHandlers);
 
@@ -43,7 +46,7 @@ const main = (): void => {
         return;
       }
 
-      console.log(`gRPC listening on ${port}`);
+      console.log(`gRPC listening on 0.0.0.0:${port}`);
       server.start();
     }
   );
