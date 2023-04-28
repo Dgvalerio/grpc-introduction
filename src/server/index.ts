@@ -33,7 +33,7 @@ const getServer = (): grpc.Server => {
 
   server.addService(userPackage.User.service, {
     CountRepositories: async (req, res) => {
-      console.log(`Buscando por: "${req.request}"\n\n`);
+      console.log(`Buscando por: "${req.request.userName}"\n\n`);
 
       const userData = await getUserData(req.request.userName || '');
 
