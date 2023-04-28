@@ -1,19 +1,12 @@
 import * as grpc from '@grpc/grpc-js';
-import * as protoLoader from '@grpc/proto-loader';
-import * as path from 'path';
+import * as readline from 'readline';
 
-import { ProtoGrpcType } from '../proto/random';
+import { grpcObject, PORT } from '../common';
 
-const PORT = 8082;
-const PROTO_FILE = '../proto/random.proto';
-
-const packageDefinition = protoLoader.loadSync(
-  path.resolve(__dirname, PROTO_FILE)
-);
-
-export const grpcObject = grpc.loadPackageDefinition(
-  packageDefinition
-) as unknown as ProtoGrpcType;
+const make = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
 const client = new grpcObject.dev.dgvalerio.ufal.Random(
   `0.0.0.0:${PORT}`,
@@ -25,14 +18,16 @@ const deadline = new Date();
 deadline.setSeconds(deadline.getSeconds() + 5);
 
 const onClientReady = (): void => {
-  client.PingPong({ message: 'ping' }, (err: any, res: any) => {
-    if (err) {
-      console.error(err);
+  make.question('Informe o nome do repositório: \n-->', (input) => {
+    client.PingPong({ message: input || '' }, (err: any, res: any) => {
+      if (err) {
+        console.error(err);
 
-      return;
-    }
+        return;
+      }
 
-    console.log({ res });
+      console.log(res);
+    });
   });
 };
 
